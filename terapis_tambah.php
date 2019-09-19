@@ -18,10 +18,6 @@
                 <input class="form-control" type="text" name="telp"  value="<?=$_POST['telp']?>"/>
             </div>
             <div class="form-group">
-                <label>Ruangan <span class="text-danger">*</span></label>
-                <select class="form-control" type="text" name="poli"><?=option_poliklinik()?></select>
-            </div>
-            <div class="form-group">
                 <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Simpan</button>
                 <a class="btn btn-danger" href="?m=ruangan"><span class="glyphicon glyphicon-arrow-left"></span> Kembali</a>
             </div>

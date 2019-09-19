@@ -1,5 +1,5 @@
 <?php
-$rows = $db->get_row("select * from tb_dokter d inner join tb_poliklinik k on d.kode_poliklinik = k.kode_poliklinik where kode_dokter='$_GET[ID]'");
+$rows = $db->get_row("select * from tb_dokter where kode_dokter='$_GET[ID]'");
 ?>
 
 <div class="page-header">
@@ -20,10 +20,6 @@ $rows = $db->get_row("select * from tb_dokter d inner join tb_poliklinik k on d.
              <div class="form-group">
                 <label>Telpon <span class="text-danger">*</span></label>
                 <input class="form-control" type="text" name="telp"  value="<?=set_value('telp',$rows->telp)?>"/>
-            </div>
-            <div class="form-group">
-                <label>Ruangan <span class="text-danger">*</span></label>
-                <select class="form-control" type="text" name="poli"><?=option_poliklinik($rows->kode_poliklinik)?></select>
             </div>
             <div class="form-group">
                 <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Simpan</button>

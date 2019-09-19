@@ -18,7 +18,7 @@
                     <li><a href="?m=obat">Produk</a></li>
                     <li><a href="?m=user">User</a></li>
                     <li><a href="?m=terapis">Terapis</a></li>
-                    <li><a href="?m=ruangan">Ruangan</a></li>
+                    <!-- <li><a href="?m=ruangan">Ruangan</a></li> -->
                     <li><a href="?m=terapi">Terapi</a></li>
                   </ul>
                 </li>
