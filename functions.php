@@ -254,6 +254,8 @@ function jenis_rawat($str){
         $str = "Rawat Inap";
     }else if($str == 'rawat_jalan'){
         $str = "Rawat Jalan";
+    }else{
+        $str = '<label class="label label-danger">Tidak Terdaftar</label>';
     }
 
     return $str;
@@ -262,13 +264,7 @@ function jenis_rawat($str){
 function getTransaksi($kode){
     global $db;
     $reg = $db->get_row("SELECT * FROM `tb_regristrasi` WHERE kode_regristrasi = '$kode'");
-    $result = '';
-    if($reg){
-        $result = jenis_rawat($reg->jenis_tindakan);
-    }else{
-        $result = '<label class="label label-danger">Tidak Terdaftar</label>';
-    }
-    return $result;
+    return $reg;
 }
 
 ?>

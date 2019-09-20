@@ -12,9 +12,10 @@
             <tr>
                 <th class="col-md-2">Tanggal</th>
                 <th class="col-md-1">Jenis</th>
-                <th class="col-md-3">Nama Terapi</th>
-                <th class="col-md-3">Terapis</th>
-                <th class="col-md-3">Harga</th>
+                <th class="col-md-3">Nama Pasien</th>
+                <th class="col-md-2">Nama Terapi</th>
+                <th class="col-md-2">Terapis</th>
+                <th class="col-md-2">Harga</th>
             </tr>
         </thead>
         <tbody>
@@ -32,7 +33,8 @@
         foreach($rows as $row):?>
         <tr>
             <td><?=$row->tanggal?></td>
-            <td><?=getTransaksi($row->kode_regristrasi)?></td>
+            <td><?=jenis_rawat(getTransaksi($row->kode_regristrasi)->jenis_tindakan)?></td>
+            <td><?=pasien(getTransaksi($row->kode_regristrasi)->kode_pasien)->nama_pasien?></td>
             <td><?=$row->nama_tindakan?></td>
             <td><?=$row->nama_dokter?></td>
             <td><?=$row->harga?></td>
@@ -42,7 +44,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <th colspan="4" style="text-align:right">Total:</th>
+                <th colspan="5" style="text-align:right">Total:</th>
                 <th></th>
             </tr>
         </tfoot>
@@ -79,7 +81,7 @@
     
                 // Total over all pages
                 total = api
-                    .column( 4 )
+                    .column( 5 )
                     .data()
                     .reduce( function (a, b) {
                         return intVal(a) + intVal(b);
@@ -87,14 +89,14 @@
     
                 // Total over this page
                 pageTotal = api
-                    .column( 4, { page: 'current'} )
+                    .column( 5, { page: 'current'} )
                     .data()
                     .reduce( function (a, b) {
                         return intVal(a) + intVal(b);
                     }, 0 );
     
                 // Update footer
-                $( api.column( 4 ).footer() ).html(
+                $( api.column( 5 ).footer() ).html(
                     'Rp. '+pageTotal +' Subtotal<br> (Rp. '+ total +' Total)'
                 );
             }
