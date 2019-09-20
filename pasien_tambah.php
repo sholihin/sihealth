@@ -8,10 +8,6 @@
                 <div class="panel panel-primary">
                     <div class="panel-body responsive">
                         <div class="form-group">
-                            <label>Kode Pasien <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" name="kode"  readonly = "readonly" value="<?=set_value('kode', kode_oto('kode_pasien', 'tb_pasien', 'RM', 7))?>"/>
-                        </div>
-                        <div class="form-group">
                             <label>Nama <span class="text-danger">*</span></label>
                             <input class="form-control" type="text" name="nama"  value="<?=$_POST['nama']?>"/>
                         </div>

@@ -191,7 +191,7 @@ if($mod=='obat_tambah'){
 
 /**PASIEN*/
 if($mod=='pasien_tambah'){
-    $kode = $_POST['kode'];
+    $kode = set_value('kode', kode_oto('kode_pasien', 'tb_pasien', 'RSB', 4));
     $nama = $_POST['nama'];
     $alamat = $_POST['alamat'];
     $jk=$_POST['jk'];
@@ -416,7 +416,7 @@ if($mod=="kunjungan_hapus"){
 
 /**REGISTER*/
 if($mod=='register'){
-    $kode_pasien = $_POST['kode'];
+    $kode_pasien = set_value('kode', kode_oto('kode_pasien', 'tb_pasien', 'RSB', 4));
     $nama = $_POST['nama'];
     $alamat = $_POST['alamat'];
     $jk=$_POST['jk'];
@@ -437,6 +437,18 @@ if($mod=='register'){
         $db->query("UPDATE tb_pasien SET transaksi_id='$db->insert_id' WHERE kode_pasien = '$kode_pasien'");
         redirect_js("client/?page=pasien&ID=$kode_pasien");
     }
+}
+
+/**REGISTER PASIEN LAMA*/
+if($act=='registrasi-pasien-lama'){
+    $kode_pasien = $_POST['kode_pasien'];
+    $jenis_tindakan = $_POST['jenis_tindakan'];
+    $tanggal = getNewDate();
+
+    getAntrian($kode_pasien);
+    $db->query("INSERT INTO tb_regristrasi (tanggal, kode_pasien, total, jenis_tindakan) values('$tanggal','$kode_pasien', 0, '$jenis_tindakan')");
+    $db->query("UPDATE tb_pasien SET transaksi_id='$db->insert_id' WHERE kode_pasien = '$kode_pasien'");
+    redirect_js("client/?page=pasien&ID=$kode_pasien");
 }
    
 ?>
