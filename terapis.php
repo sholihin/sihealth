@@ -25,6 +25,7 @@
                 <th>Nama Dokter</th>
                 <th>Alamat</th>
                 <th>Telpon</th>
+                <th>Level</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -43,6 +44,7 @@
             <td><?=$row->nama_dokter?></td>
             <td><?=$row->alamat?></td>
             <td><?=$row->telp?></td>
+            <td><?=levelTerapis($row->level_terapis)?></td>
             <td class="nw">
                 <a class="btn btn-xs btn-warning" href="?m=terapis_ubah&amp;ID=<?=$row->kode_dokter?>"><span class="glyphicon glyphicon-edit"></span></a>
                 <a class="btn btn-xs btn-danger" href="aksi.php?act=terapis_hapus&amp;ID=<?=$row->kode_dokter?>" onclick="return confirm('Hapus data?')"><span class="glyphicon glyphicon-trash"></span></a>

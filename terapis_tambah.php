@@ -13,9 +13,17 @@
                 <label>Alamat <span class="text-danger">*</span></label>
                 <input class="form-control" type="text" name="alamat"  value="<?=$_POST['alamat']?>"/>
             </div>
-             <div class="form-group">
+            <div class="form-group">
                 <label>Telpon <span class="text-danger">*</span></label>
                 <input class="form-control" type="text" name="telp"  value="<?=$_POST['telp']?>"/>
+            </div>
+            <div class="form-group">
+                <label>Level <span class="text-danger">*</span></label>
+                <select class="form-control" type="text" name="level_terapis" value="<?=$_POST['level_terapis']?>">
+                    <option value="" disable>Pilihan</option>
+                    <option value="junior">Junior</option>
+                    <option value="senior">Senior</option>
+                </select>
             </div>
             <div class="form-group">
                 <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Simpan</button>

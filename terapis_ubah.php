@@ -22,6 +22,14 @@ $rows = $db->get_row("select * from tb_dokter where kode_dokter='$_GET[ID]'");
                 <input class="form-control" type="text" name="telp"  value="<?=set_value('telp',$rows->telp)?>"/>
             </div>
             <div class="form-group">
+                <label>Level <span class="text-danger">*</span></label>
+                <select class="form-control" type="text" name="level_terapis"  value="<?=$_POST['level_terapis']?>">
+                    <option value="" disable>Pilihan</option>
+                    <option value="junior" <?=$rows->level_terapis == 'junior' ? 'selected' : ''?>>Junior</option>
+                    <option value="senior" <?=$rows->level_terapis == 'senior' ? 'selected' : ''?>>Senior</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Simpan</button>
                 <a class="btn btn-danger" href="?m=ruangan"><span class="glyphicon glyphicon-arrow-left"></span> Kembali</a>
             </div>

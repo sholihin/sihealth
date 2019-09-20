@@ -102,11 +102,12 @@ if($mod=='terapis_tambah'){
     $nama =$_POST['nama'];
     $alamat = $_POST['alamat'];
     $telp = $_POST['telp'];
-    if($nama==''||$alamat==''||$telp==''){
+    $level = $_POST['level_terapis'];
+    if($nama==''||$alamat==''||$telp==''||$level==''){
         print_msg("Field bertanda * tidak boleh kosong!");
     }else
     {
-        $db->query("insert into tb_dokter(nama_dokter,alamat,telp) values('$nama','$alamat','$telp')");
+        $db->query("insert into tb_dokter(nama_dokter,alamat,telp,level_terapis) values('$nama','$alamat','$telp','$level')");
         redirect_js("index.php?m=terapis");
     }
                     
@@ -114,11 +115,12 @@ if($mod=='terapis_tambah'){
     $nama =$_POST['nama'];
     $alamat = $_POST['alamat'];
     $telp = $_POST['telp'];
-    if($nama==''||$alamat==''||$telp==''){
+    $level = $_POST['level_terapis'];
+    if($nama==''||$alamat==''||$telp==''||$level==''){
         print_msg("Field bertanda * tidak boleh kosong!");
     }else
     {
-        $db->query("update tb_dokter set nama_dokter='$nama',alamat='$alamat',telp='$telp' where kode_dokter ='$_GET[ID]'");
+        $db->query("update tb_dokter set nama_dokter='$nama',alamat='$alamat',telp='$telp', level_terapis='$level' where kode_dokter ='$_GET[ID]'");
         redirect_js("index.php?m=terapis");
     }
 } else if ($act=='terapis_hapus'){

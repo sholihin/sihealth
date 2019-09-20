@@ -90,6 +90,19 @@ function tgl_indo($date){
     return $tanggal[2] .' '. $bulan .' '. $tanggal[0];
 }
 
+function levelTerapis($level){
+    $str = '';
+    if($level == 'junior'){
+        $str = 'Junior';
+    }elseif($level == 'senior'){
+        $str = 'Senior';
+    }else{
+        $str = "<label class='label label-danger'>Tidak terdaftar</label>";
+    }
+
+    return $str;
+}
+
 function terbilang($x)
 {
   $abil = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
