@@ -22,6 +22,14 @@ $row = $db->get_row("select * from tb_tindakan where kode_tindakan='$_GET[ID]'")
                 <input class="form-control" type="text" name="harga"  value="<?=$row->harga?>"/>
             </div>
             <div class="form-group">
+                <label>Komisi Senior <span class="text-danger">*</span></label>
+                <input class="form-control" type="number" name="ujroh_senior"  value="<?=$_POST['ujroh_senior']?>"/>
+            </div>
+            <div class="form-group">
+                <label>Komisi Junior <span class="text-danger">*</span></label>
+                <input class="form-control" type="number" name="ujroh_junior"  value="<?=$_POST['ujroh_junior']?>"/>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Simpan</button>
                 <a class="btn btn-danger" href="?m=terapi"><span class="glyphicon glyphicon-arrow-left"></span> Kembali</a>
             </div>

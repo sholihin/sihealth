@@ -1,6 +1,6 @@
 
 <div class="page-header">
-    <h1>Tindakan</h1>
+    <h1>Terapi</h1>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading">        
@@ -24,6 +24,8 @@
                 <th>Kode</th>
                 <th>Nama Tindakan</th>
                 <th>Harga</th>
+                <th class="col-md-1">Komisi Senior</th>
+                <th class="col-md-1">Komisi Junior</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -41,9 +43,11 @@
             <td><?=$row->kode_tindakan ?></td>
             <td><?=$row->nama_tindakan?></td>
             <td><?=set_num($row->harga,0)?></td>
+            <td><?=$row->ujroh_senior.'%'?></td>
+            <td><?=$row->ujroh_junior.'%'?></td>
             <td class="nw">
-                <a class="btn btn-xs btn-warning" href="?m=terapi_ubah&amp;ID=<?=$row->kode_tindakan?>"><span class="glyphicon glyphicon-edit"></span></a>
-                <a class="btn btn-xs btn-danger" href="aksi.php?act=terapi_hapus&amp;ID=<?=$row->kode_tindakan?>" onclick="return confirm('Hapus data?')"><span class="glyphicon glyphicon-trash"></span></a>
+                <a class="btn btn-xs btn-warning" href="?m=terapi_ubah&ID=<?=$row->kode_tindakan?>"><span class="glyphicon glyphicon-edit"></span></a>
+                <a class="btn btn-xs btn-danger" href="aksi.php?act=terapi_hapus&ID=<?=$row->kode_tindakan?>" onclick="return confirm('Hapus data?')"><span class="glyphicon glyphicon-trash"></span></a>
             </td>
         </tr>
         <?php endforeach;

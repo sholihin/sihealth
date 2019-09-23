@@ -13,9 +13,17 @@
                 <label>Nama Tindakan <span class="text-danger">*</span></label>
                 <input class="form-control" type="text" name="nama"  value="<?=$_POST['nama']?>"/>
             </div>
-             <div class="form-group">
+            <div class="form-group">
                 <label>Harga <span class="text-danger">*</span></label>
                 <input class="form-control" type="text" name="harga"  value="<?=$_POST['harga']?>"/>
+            </div>
+            <div class="form-group">
+                <label>Komisi Senior <span class="text-danger">*</span></label>
+                <input class="form-control" type="number" name="senior" value="<?=$_POST['senior']?>"/>
+            </div>
+            <div class="form-group">
+                <label>Komisi Junior <span class="text-danger">*</span></label>
+                <input class="form-control" type="number" name="junior" value="<?=$_POST['junior']?>"/>
             </div>
             <div class="form-group">
                 <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Simpan</button>

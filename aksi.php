@@ -134,25 +134,29 @@ if($mod=='terapi_tambah'){
     $kode = $_POST['kode'];
     $nama = $_POST['nama'];
     $harga = $_POST['harga'];
+    $senior = $_POST['senior'];
+    $junior = $_POST['junior'];
 
-    if($nama==''||$harga==''){ 
+    if($nama==''||$harga==''||$senior==''||$junior==''){ 
         print_msg("Field bertanda * tidak boleh kosong!");
     }else{
-        $db->query("insert into tb_tindakan (kode_tindakan,nama_tindakan,harga) values('$kode','$nama','$harga')");
+        $db->query("insert into tb_tindakan (kode_tindakan,nama_tindakan,harga,ujroh_senior,ujroh_junior) values('$kode','$nama','$harga','$senior','$junior')");
         redirect_js("index.php?m=terapi");
     }
 
 }elseif($mod=='terapi_ubah'){
     $nama = $_POST['nama'];
     $harga = $_POST['harga'];
+    $ujroh_senior = $_POST['ujroh_senior'];
+    $ujroh_junior = $_POST['ujroh_junior'];
 
     if($nama==''||$harga==''){ 
         print_msg("Field bertanda * tidak boleh kosong!");
     }else{
-        $db->query("update tb_tindakan set nama_tindakan='$nama',harga='$harga' where kode_tindakan='$_GET[ID]'");
+        $db->query("update tb_tindakan set nama_tindakan='$nama',harga='$harga', ujroh_senior='$ujroh_senior',ujroh_junior='$ujroh_junior'  where kode_tindakan='$_GET[ID]'");
         redirect_js("index.php?m=terapi");
     }
-}elseif($act =='tindakan_hapus'){
+}elseif($act =='terapi_hapus'){
 $db->query("delete from tb_tindakan where kode_tindakan='$_GET[ID]'");
 header("location:index.php?m=terapi");
 }
