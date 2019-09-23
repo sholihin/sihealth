@@ -230,7 +230,15 @@ function countPriceOfTerapi($query){
     $total = 0;
     
     foreach($query as $x){
-        $total += $x->harga;
+        if($x->discount > 1 && $x->discount < 100){
+            $total += $x->harga - (($x->harga * $x->discount) / 100);
+        }elseif($x->discount < 1){
+            $total += $x->harga;
+        }elseif($x->discount > 99){
+            $total += $x->harga - $x->discount;
+        }else{
+            $total += $x->harga;
+        }
     }
 
     return $total;

@@ -388,6 +388,13 @@ if($act=="pilihterapis"){
     header("location:index.php?m=tindakan_kunjungan&c=$_GET[ID]");
 }
 
+if($act=="discount_terapi"){
+    $discount = $_POST['diskon'];
+    $id_detail_tindakan = $_POST['id_detail_tindakan'];
+    $db->query("UPDATE `tb_detail_tindakan` SET `discount` = '$discount' WHERE `id_detail_tindakan` = '$id_detail_tindakan'"); 
+    header("location:index.php?m=tindakan_kunjungan&c=$_GET[ID]");
+}
+
 if($act=="change-qty"){
     $id_detail_obat = $_POST['id_detail_obat'];
     $qty = $_POST['qty'];

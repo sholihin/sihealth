@@ -135,6 +135,9 @@ if($row) :
     function changeQty($id){
         $("#form-qty-"+$id).submit();
     }
+    function discount($id){
+        $("#form-discount-"+$id).submit();
+    }
 </script>
 
 <div class="row">
@@ -179,12 +182,14 @@ if($row) :
                         <th>Nama</th>
                         <th>Biaya</th>
                         <th>Terapis</th>
+                        <th>Diskon</th>
+                        <th>Subtotal</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <?php
                     $no=1;
-                    $tindakan = $db->get_results("SELECT tb_detail_tindakan.id_detail_tindakan,tb_detail_tindakan.kode_regristrasi,tb_detail_tindakan.kode_tindakan,tb_detail_tindakan.terapis_id,tb_tindakan.nama_tindakan,tb_tindakan.harga FROM tb_detail_tindakan INNER JOIN tb_tindakan ON tb_detail_tindakan.kode_tindakan = tb_tindakan.kode_tindakan WHERE tb_detail_tindakan.kode_regristrasi = '$rows->transaksi_id'");
+                    $tindakan = $db->get_results("SELECT tb_detail_tindakan.discount,tb_detail_tindakan.id_detail_tindakan,tb_detail_tindakan.kode_regristrasi,tb_detail_tindakan.kode_tindakan,tb_detail_tindakan.terapis_id,tb_tindakan.nama_tindakan,tb_tindakan.harga FROM tb_detail_tindakan INNER JOIN tb_tindakan ON tb_detail_tindakan.kode_tindakan = tb_tindakan.kode_tindakan WHERE tb_detail_tindakan.kode_regristrasi = '$rows->transaksi_id'");
                     foreach($tindakan as $trx):
                 ?>
                     <tr>
@@ -200,12 +205,37 @@ if($row) :
                             </select>
                         </form>
                         </td>
+                        <td class="col-md-2">
+                        <form method="POST" action="aksi.php?act=discount_terapi&ID=<?=$_GET[c]?>" id="form-discount-<?=$trx->id_detail_tindakan?>">
+                            <input type="hidden" name="id_detail_tindakan" value="<?=$trx->id_detail_tindakan?>">
+                            <input class="form-control input-sm" onchange="discount(<?=$trx->id_detail_tindakan?>)" type="text" name="diskon" value="<?=$trx->discount?>">
+                        </form>
+                        </td>
+                        <td class="col-md-2">
+                            <strong>
+                            <?php
+                                if($trx->discount > 1 && $trx->discount < 100){
+                                    echo $trx->harga - (($trx->harga * $trx->discount) / 100);
+                                }elseif($trx->discount < 1){
+                                    echo $trx->harga;
+                                }elseif($trx->discount > 99){
+                                    echo $trx->harga - $trx->discount;
+                                }else{
+                                    echo $trx->harga;
+                                }
+                            ?>
+                            </strong>
+                        </td>
                         <td class="col-md-1 text-center">
                             <a class="btn btn-xs btn-danger" href="aksi.php?act=tindakan_kunjungan_hapus&ID=<?=$_GET[c]?>&kode=TN&kodetindakan=<?=$trx->id_detail_tindakan?>" onclick="return confirm('Hapus data?')"><span class="glyphicon glyphicon-trash"></span></a>
                         </td>
                     </tr>
                     <?php endforeach;
                     ?>
+                    <tr>
+                        <td colspan="5" class="text-right"><strong>Total : </strong></td>
+                        <td colspan="2"><strong><?=countPriceOfTerapi($tindakan)?></strong></td>
+                    </tr>
                 </table>
                 <hr>
                 <h4>Herbal</h4>
@@ -233,16 +263,20 @@ if($row) :
                             <td class="col-md-1">
                                 <form action="aksi.php?act=change-qty&ID=<?=$_GET[c]?>" method="POST" id="form-qty-<?=$rows->id_detail_obat?>">
                                     <input type="hidden" class="form-control" name="id_detail_obat" value="<?=$rows->id_detail_obat?>">
-                                    <input type="number" class="form-control input-sm" name="qty" onChange="changeQty(<?=$rows->id_detail_obat?>)" value="<?=$rows->jumlah_produk?>">
+                                    <input type="number" class="form-control input-sm" name="qty" min="1" onChange="changeQty(<?=$rows->id_detail_obat?>)" value="<?=$rows->jumlah_produk?>">
                                 </form>
                             </td>
-                            <td><?=$rows->harga_jual * $rows->jumlah_produk?></td>
+                            <td class="col-md-2"><?=$rows->harga_jual * $rows->jumlah_produk?></td>
                             <td class="col-md-1 text-center">
                                 <a class="btn btn-xs btn-danger" href="aksi.php?act=tindakan_kunjungan_hapus&ID=<?=$_GET[c]?>&kode=OB&kodeobat=<?=$rows->id_detail_obat?>" onclick="return confirm('Hapus data?')"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
                         <?php endforeach;
                         ?>
+                        <tr>
+                            <td colspan="4" class="text-right"><strong>Total : </strong></td>
+                            <td colspan="2"><strong><?=countPriceOfProduct($produk)?></strong></td>
+                        </tr>
                     </tbody>
                 </table>
                 <hr>
