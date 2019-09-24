@@ -27,7 +27,7 @@
         $no=0;
         foreach($rows as $row):?>
         <tr>
-            <td><a target="_blank" href="/client/?page=pasien&ID=<?=$row->kode_pasien ?>"><?=$row->kode_pasien ?></a></td>
+            <td><a target="_blank" href="index.php?m=medical-records-admin&ID=<?=$row->kode_pasien ?>"><?=$row->kode_pasien ?></a></td>
             <td><?=$row->nama_pasien?></td>
             <td><?=$row->alamat?></td>
             <td><?php if($row->jk==1){echo "Laki-Laki";}else{echo "Perempuan";}?></td>

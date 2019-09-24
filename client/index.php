@@ -29,6 +29,10 @@
                 include 'medical-records.php'; 
                 break;
             
+            case 'history-pasien':
+                include 'medical-records-admin.php'; 
+                break;
+            
             default:
                 include '404.php'; 
                 break;
