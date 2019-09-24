@@ -139,15 +139,13 @@ window.onload = function () {
                                                     WHERE tb_regristrasi.kode_pasien = '$_GET[ID]' 
                                                     ORDER BY`tanggal` DESC");
 
-                        $no=0;
                         $total = 0;
                         if($pasiens):
                         foreach($pasiens as $pasien){
-                        $no = $no + 1;
                         $total += $pasien->total;
                         ?>
                         <tr>
-                            <td class="col-md-1"><a href="index.php?m=detail-transaksi&trx_id=<?=$pasien->kode_regristrasi?>" class="btn btn-primary btn-xs" >#INV<?=$no?> <i class="glyphicon glyphicon-search"></i></a></td>
+                            <td class="col-md-1"><a href="index.php?m=detail-transaksi&trx_id=<?=$pasien->kode_regristrasi?>" class="btn btn-primary btn-xs" >#INV<?=$pasien->kode_regristrasi?> <i class="glyphicon glyphicon-search"></i></a></td>
                             <td class="col-md-2"><?=$pasien->tanggal?></td>
                             <td><?=jenis_rawat($pasien->jenis_tindakan)?></td>
                             <td>Rp. <?=$pasien->total?></td>
