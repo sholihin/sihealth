@@ -331,15 +331,9 @@ if($act=='diagnosa'){
         $pasien = $db->get_row("SELECT * FROM tb_diagnosa WHERE kode_pasien = '$kode_pasien'");
         if($pasien){
             $query=$db->query("UPDATE tb_diagnosa SET diagnosa='$diagnosa', tanggal='$tanggal' WHERE kode_pasien = '$kode_pasien'");
-            if($query){
-                msg("Data berhasil disimpan.");
-            }
             header("location:index.php?m=pasien");
         }else{
             $query=$db->query("INSERT INTO tb_diagnosa (kode_pasien, diagnosa, tanggal) values('$kode_pasien','$diagnosa','$tanggal')");
-            if($query){
-                msg("Data berhasil disimpan.");
-            }
             header("location:index.php?m=pasien");
         }
         
