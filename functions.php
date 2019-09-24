@@ -275,4 +275,76 @@ function getTransaksi($kode){
     return $reg;
 }
 
+function getTrx($kode){
+    global $db;
+    $list = array();
+    $bill = array();
+
+    $harta_total_obat = 0;
+    $harta_total_terapi = 0;
+    $discount = 0;
+
+    $str = '';
+    $reg = $db->get_row("SELECT tb_regristrasi.kode_regristrasi,tb_regristrasi.tanggal,tb_regristrasi.total,tb_pasien.nama_pasien,tb_pasien.alamat FROM `tb_regristrasi`
+                            RIGHT OUTER JOIN tb_pasien USING (kode_pasien)
+                            WHERE kode_regristrasi = '$kode'");
+
+    $terapi = $db->get_results("SELECT tb_detail_tindakan.discount,tb_tindakan.nama_tindakan,tb_tindakan.harga 
+                                FROM tb_detail_tindakan
+                                RIGHT OUTER JOIN tb_tindakan USING (kode_tindakan)
+                                WHERE tb_detail_tindakan.kode_regristrasi = '$kode'");
+
+    $obat = $db->get_results("SELECT tb_obat.nama_obat,tb_obat.harga_jual,tb_detail_obat.jumlah_produk
+                                FROM tb_detail_obat
+                                RIGHT OUTER JOIN tb_obat USING (kode_obat)
+                                WHERE tb_detail_obat.kode_regristrasi = '$kode'");
+
+    foreach($terapi as $x){
+        $harta_total_terapi += $x->harga;
+        if($x->discount > 99){
+            $discount += $x->discount;
+        }elseif($x->discount > 0 && $x->discount < 100) {
+            $discount += ($x->harga * $x->discount) / 100; 
+        }else{
+            $discount += 0;
+        }
+        
+        $str = array(
+            $x->nama_tindakan,
+            'Kategori Terapi/Pengobatan',
+            1,
+            $x->harga,
+            $x->harga * 1
+        );
+        array_push($list, $str);
+    }
+
+    foreach($obat as $x){
+        $harga_total_obat += $x->harga_jual * $x->jumlah_produk;
+        $str = array(
+            $x->nama_obat,
+            'Kategori Herbal/Obat',
+            1,
+            $x->harga_jual,
+            $x->harga_jual * $x->jumlah_produk
+        );
+        array_push($list, $str);
+    }
+
+    $all = array(
+        'bill' => array(
+            'customer_name' => $reg->nama_pasien,
+            'customer_address' => $reg->alamat,
+            'tanggal' => $reg->tanggal,
+            'subtotal' => $harta_total_terapi + $harga_total_obat,
+            'discount' => $discount,
+            'grandtotal' => $reg->total
+        ),
+        'list' => $list
+    );
+
+    return $all;
+}
+
+
 ?>

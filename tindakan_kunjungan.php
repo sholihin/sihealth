@@ -1,5 +1,5 @@
 <?php
-$rows = $db->get_row("select * from tb_pasien where kode_pasien = '$_GET[c]'");
+$pasien = $db->get_row("select * from tb_pasien where kode_pasien = '$_GET[c]'");
 $total = 0;
 ?>
 <div class="page-header">
@@ -18,7 +18,7 @@ $total = 0;
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon" id="basic-addon1">Kode Pasien</span>
                                 <input type="hidden" class="form-control" name="m" value="tindakan_kunjungan">
-                                <input type="text" class="form-control" name="c" value="<?=$rows->kode_pasien ?>">
+                                <input type="text" class="form-control" name="c" value="<?=$pasien->kode_pasien ?>">
                             </div>
                         </form>
                     </div>
@@ -30,13 +30,13 @@ $total = 0;
                         <div class="form-group">
                             <label class="col-md-3">Nama</label>
                             <div class="col-md-9">
-                            <input type="text"  class="form-control" readonly="readonly" name="nama_pasien" value="<?=$rows->nama_pasien ?>" >
+                            <input type="text"  class="form-control" readonly="readonly" name="nama_pasien" value="<?=$pasien->nama_pasien ?>" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-3">Alamat</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" readonly="readonly" name="umur" value="<?=$rows->alamat ?>" >
+                                <input type="text" class="form-control" readonly="readonly" name="umur" value="<?=$pasien->alamat ?>" >
                             </div>
                         </div>
                     </div>
@@ -45,13 +45,13 @@ $total = 0;
                             <label class="col-md-3">JK</label>
                             <div class="col-md-9">
                             <input type="text"  class="form-control" readonly="readonly" name="nama_pasien" 
-                                value="<?php if($rows->jk == 'P') echo 'Perempuan'; elseif($rows->jk == 'L') echo'Laki-laki'; ?>">
+                                value="<?php if($pasien->jk == 'P') echo 'Perempuan'; elseif($pasien->jk == 'L') echo'Laki-laki'; ?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-3">Umur</label>
                             <div class="col-lg-9">
-                                <input type="text" class="form-control" readonly="readonly" name="umur" value="<?=$rows->umur ?>" >
+                                <input type="text" class="form-control" readonly="readonly" name="umur" value="<?=$pasien->umur ?>" >
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@ $total = 0;
     </div>
 </div>
 <?php 
-$row = $db->get_results("SELECT * FROM tb_regristrasi WHERE kode_regristrasi = '$rows->transaksi_id'"); 
+$row = $db->get_results("SELECT * FROM tb_regristrasi WHERE kode_regristrasi = '$pasien->transaksi_id'"); 
 
 //untuk suggestions
 $produk = $db->get_results("SELECT * FROM tb_obat"); 
@@ -152,9 +152,9 @@ if($row) :
                         <label class="col-lg-2 control-label">Pilih Item</label>
                         <div class="col-lg-8">
                             <?php if($_POST) include'aksi.php'?>
-                            <form method="post" action="?m=tindakan_kunjungan&c=<?=$rows->kode_pasien?>">
+                            <form method="post" action="?m=tindakan_kunjungan&c=<?=$pasien->kode_pasien?>">
                                 <div class="input-group">
-                                    <input type="hidden" class="form-control" name="kode_pasien" value="<?=$rows->kode_pasien ?>">
+                                    <input type="hidden" class="form-control" name="kode_pasien" value="<?=$pasien->kode_pasien ?>">
                                     <input type="text" class="form-control" name="item" id="item">
                                     <div class="input-group-btn">
                                         <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
@@ -189,7 +189,7 @@ if($row) :
                 </thead>
                 <?php
                     $no=1;
-                    $tindakan = $db->get_results("SELECT tb_detail_tindakan.discount,tb_detail_tindakan.id_detail_tindakan,tb_detail_tindakan.kode_regristrasi,tb_detail_tindakan.kode_tindakan,tb_detail_tindakan.terapis_id,tb_tindakan.nama_tindakan,tb_tindakan.harga FROM tb_detail_tindakan INNER JOIN tb_tindakan ON tb_detail_tindakan.kode_tindakan = tb_tindakan.kode_tindakan WHERE tb_detail_tindakan.kode_regristrasi = '$rows->transaksi_id'");
+                    $tindakan = $db->get_results("SELECT tb_detail_tindakan.discount,tb_detail_tindakan.id_detail_tindakan,tb_detail_tindakan.kode_regristrasi,tb_detail_tindakan.kode_tindakan,tb_detail_tindakan.terapis_id,tb_tindakan.nama_tindakan,tb_tindakan.harga FROM tb_detail_tindakan INNER JOIN tb_tindakan ON tb_detail_tindakan.kode_tindakan = tb_tindakan.kode_tindakan WHERE tb_detail_tindakan.kode_regristrasi = '$pasien->transaksi_id'");
                     foreach($tindakan as $trx):
                 ?>
                     <tr>
@@ -215,9 +215,7 @@ if($row) :
                             <strong>
                             <?php
                                 if($trx->discount > 1 && $trx->discount < 100){
-                                    echo $trx->harga - (($trx->harga * $trx->discount) / 100);
-                                }elseif($trx->discount < 1){
-                                    echo $trx->harga;
+                                    echo $trx->harga - ($trx->harga * $trx->discount) / 100;
                                 }elseif($trx->discount > 99){
                                     echo $trx->harga - $trx->discount;
                                 }else{
@@ -253,7 +251,7 @@ if($row) :
                     <tbody>
                         <?php
                             $no=1;
-                            $produk = $db->get_results("SELECT tb_detail_obat.id_detail_obat,tb_detail_obat.kode_obat,tb_detail_obat.kode_regristrasi,tb_detail_obat.jumlah_produk,tb_obat.nama_obat,tb_obat.harga_jual FROM tb_detail_obat INNER JOIN tb_obat ON tb_detail_obat.kode_obat = tb_obat.kode_obat WHERE tb_detail_obat.kode_regristrasi = '$rows->transaksi_id'");
+                            $produk = $db->get_results("SELECT tb_detail_obat.id_detail_obat,tb_detail_obat.kode_obat,tb_detail_obat.kode_regristrasi,tb_detail_obat.jumlah_produk,tb_obat.nama_obat,tb_obat.harga_jual FROM tb_detail_obat INNER JOIN tb_obat ON tb_detail_obat.kode_obat = tb_obat.kode_obat WHERE tb_detail_obat.kode_regristrasi = '$pasien->transaksi_id'");
                             foreach($produk as $rows):
                         ?>
                         <tr>
@@ -280,25 +278,25 @@ if($row) :
                     </tbody>
                 </table>
                 <hr>
-                <div class="col-md-3 col-md-offset-3">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon">Total</span>
-                        <input type="text" class="form-control" id="total" readonly value="<?=countPriceOfProduct($produk)+countPriceOfTerapi($tindakan)?>">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <form action="aksi.php?act=transaksi_rawat_selesai" method="POST">
+                <form action="aksi.php?act=transaksi_rawat_selesai" method="POST">
+                    <div class="col-md-4">
                         <div class="input-group input-group-lg">
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn btn-success" onclick="return confirm('Yakin sudah selesai?')"><i class="glyphicon glyphicon-send"></i> Bayar</button>
-                            </span>
-                            <input type="hidden" class="form-control" name="kode_pasien" value="<?=$_GET[c]?>">
-                            <input type="hidden" class="form-control" name="kode_reg" value="<?=$rows->transaksi_id?>">
-                            <input type="text" class="form-control" id="bayar" onchange="hitung()" placeholder="Bayar">
+                            <span class="input-group-addon">Grand Total</span>
+                            <input type="number" class="form-control" name="total_bayar" id="total" readonly value="<?=countPriceOfProduct($produk)+countPriceOfTerapi($tindakan)?>">
                         </div>
-                    </form>
-                </div>
-                <div class="col-md-3">
+                    </div>
+                    <div class="col-md-4">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-success" onclick="return confirm('Yakin sudah selesai?')"><i class="glyphicon glyphicon-send"></i> Bayar</button>
+                                </span>
+                                <input type="hidden" class="form-control" name="kode_pasien" value="<?=$_GET[c]?>">
+                                <input type="hidden" class="form-control" name="kode_reg" value="<?=$pasien->transaksi_id ?>">
+                                <input type="text" class="form-control" id="bayar" onchange="hitung()" placeholder="Bayar">
+                            </div>
+                    </div>
+                </form>
+                <div class="col-md-4">
                     <div class="input-group input-group-lg">
                         <span class="input-group-btn">
                             <button class="btn btn-danger" type="button">Kembali</button>
@@ -309,7 +307,6 @@ if($row) :
             </div>
     </div>
 </div>
-
 <?php endif ?>
 
 

@@ -411,9 +411,10 @@ if($act=="transaksi_rawat_selesai"){
     //Update tb_regristrasi
     $selesai = getNewDateTime();
     $kode_reg = $_POST['kode_reg'];
-    $db->query("UPDATE `tb_regristrasi` SET `tanggal_selesai` = '$selesai' WHERE `tb_regristrasi`.`kode_regristrasi` = $kode_reg"); 
+    $total_bayar = $_POST['total_bayar'];
+    $db->query("UPDATE `tb_regristrasi` SET `tanggal_selesai` = '$selesai', `total` = '$total_bayar' WHERE `tb_regristrasi`.`kode_regristrasi` = $kode_reg"); 
 
-    header("location:index.php?m=pasien");
+    header("location:print.php?trx_id=$kode_reg");
 }
 
 if($mod=="kunjungan_hapus"){
