@@ -4,49 +4,51 @@
 
 <div class="panel panel-default">
     <div class="panel-heading clearfix" style="margin-bottom:5px">      
-        <h1 class="text-left pull-left" style="margin-top:0px">Laporan Penjualan</h1>
+        <h4>Laporan Penjualan</h4>
     </div>
-    <div class="table-responsive">
-        <table id="table" class="table table-bordered table-hover table-striped">
-        <thead>
-            <tr>
-                <th class="col-md-2">Tanggal</th>
-                <th class="col-md-3">Nama Herbal</th>
-                <th class="col-md-3">Harga</th>
-                <th class="col-md-1">Jumlah</th>
-                <th class="col-md-3">Total</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php
-        $q = esc_field($_GET['q']);
-      
-        $rows = $db->get_results("SELECT tb_detail_obat.kode_regristrasi,tb_detail_obat.kode_obat,tb_detail_obat.jumlah_produk,tb_obat.nama_obat,tb_obat.harga_beli,tb_obat.harga_jual,tb_regristrasi.tanggal
-                                    FROM tb_detail_obat 
-                                    INNER JOIN tb_obat ON tb_detail_obat.kode_obat = tb_obat.kode_obat
-                                    INNER JOIN tb_regristrasi ON tb_detail_obat.kode_regristrasi = tb_detail_obat.kode_regristrasi
-                                    ORDER BY tb_regristrasi.tanggal DESC
-                                    ");
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table id="table" class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th class="col-md-2">Tanggal</th>
+                    <th class="col-md-3">Nama Herbal</th>
+                    <th class="col-md-3">Harga</th>
+                    <th class="col-md-1">Jumlah</th>
+                    <th class="col-md-3">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+            $q = esc_field($_GET['q']);
         
-        $no=0;
-        foreach($rows as $row):?>
-        <tr>
-            <td><?=$row->tanggal?></td>
-            <td><?=$row->kode_obat.' - '.$row->nama_obat?></td>
-            <td><?=$row->harga_jual?></td>
-            <td><?=$row->jumlah_produk?></td>
-            <td><?=$row->jumlah_produk * $row->harga_jual?></td>
-        </tr>
-        <?php endforeach;
-        ?>
-        </tbody>
-        <tfoot>
+            $rows = $db->get_results("SELECT tb_detail_obat.kode_regristrasi,tb_detail_obat.kode_obat,tb_detail_obat.jumlah_produk,tb_obat.nama_obat,tb_obat.harga_beli,tb_obat.harga_jual,tb_regristrasi.tanggal
+                                        FROM tb_detail_obat 
+                                        INNER JOIN tb_obat ON tb_detail_obat.kode_obat = tb_obat.kode_obat
+                                        INNER JOIN tb_regristrasi ON tb_detail_obat.kode_regristrasi = tb_detail_obat.kode_regristrasi
+                                        ORDER BY tb_regristrasi.tanggal DESC
+                                        ");
+            
+            $no=0;
+            foreach($rows as $row):?>
             <tr>
-                <th colspan="4" style="text-align:right">Total:</th>
-                <th></th>
+                <td><?=$row->tanggal?></td>
+                <td><?=$row->kode_obat.' - '.$row->nama_obat?></td>
+                <td><?=$row->harga_jual?></td>
+                <td><?=$row->jumlah_produk?></td>
+                <td><?=$row->jumlah_produk * $row->harga_jual?></td>
             </tr>
-        </tfoot>
-        </table>
+            <?php endforeach;
+            ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="4" style="text-align:right">Total:</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+            </table>
+        </div>
     </div>
 </div>
 

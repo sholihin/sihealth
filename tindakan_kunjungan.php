@@ -195,7 +195,7 @@ if($row) :
                     <tr>
                         <td class="col-md-1"><?=$no++?></td>
                         <td><?=$trx->nama_tindakan?></td>
-                        <td><?=$trx->harga?></td>
+                        <td>Rp. <?=set_num($trx->harga,0)?></td>
                         <td class="col-md-2">
                         <form method="POST" action="aksi.php?act=pilihterapis&ID=<?=$_GET[c]?>" id="form-terapis-<?=$trx->id_detail_tindakan?>">
                             <input type="hidden" name="id_detail_tindakan" value="<?=$trx->id_detail_tindakan?>">
@@ -215,24 +215,25 @@ if($row) :
                             <strong>
                             <?php
                                 if($trx->discount > 1 && $trx->discount < 100){
-                                    echo $trx->harga - ($trx->harga * $trx->discount) / 100;
+                                    echo 'Rp. '. set_num($trx->harga - ($trx->harga * $trx->discount) / 100,0);
                                 }elseif($trx->discount > 99){
-                                    echo $trx->harga - $trx->discount;
+                                    echo 'Rp. '. set_num($trx->harga - $trx->discount,0);
                                 }else{
-                                    echo $trx->harga;
+                                    echo 'Rp. '. set_num($trx->harga,0);
                                 }
                             ?>
                             </strong>
                         </td>
                         <td class="col-md-1 text-center">
                             <a class="btn btn-xs btn-danger" href="aksi.php?act=tindakan_kunjungan_hapus&ID=<?=$_GET[c]?>&kode=TN&kodetindakan=<?=$trx->id_detail_tindakan?>" onclick="return confirm('Hapus data?')"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a class="btn btn-xs btn-warning" href="index.php?m=rekam-medis&id=<?=$trx->id_detail_tindakan?>&c=<?=$_GET[c]?>"><span class="glyphicon glyphicon-plus"></span></a>
                         </td>
                     </tr>
                     <?php endforeach;
                     ?>
                     <tr>
                         <td colspan="5" class="text-right"><strong>Total : </strong></td>
-                        <td colspan="2"><strong><?=countPriceOfTerapi($tindakan)?></strong></td>
+                        <td colspan="2"><strong><?='Rp. '. set_num(countPriceOfTerapi($tindakan),0)?></strong></td>
                     </tr>
                 </table>
                 <hr>
@@ -257,14 +258,14 @@ if($row) :
                         <tr>
                             <td class="col-md-1"><?=$no++?></td>
                             <td><?=$rows->nama_obat?></td>
-                            <td><?=$rows->harga_jual?></td>
+                            <td>Rp. <?=set_num($rows->harga_jual,0)?></td>
                             <td class="col-md-1">
                                 <form action="aksi.php?act=change-qty&ID=<?=$_GET[c]?>" method="POST" id="form-qty-<?=$rows->id_detail_obat?>">
                                     <input type="hidden" class="form-control" name="id_detail_obat" value="<?=$rows->id_detail_obat?>">
                                     <input type="number" class="form-control input-sm" name="qty" min="1" onChange="changeQty(<?=$rows->id_detail_obat?>)" value="<?=$rows->jumlah_produk?>">
                                 </form>
                             </td>
-                            <td class="col-md-2"><?=$rows->harga_jual * $rows->jumlah_produk?></td>
+                            <td class="col-md-2">Rp. <?=set_num($rows->harga_jual * $rows->jumlah_produk,0)?></td>
                             <td class="col-md-1 text-center">
                                 <a class="btn btn-xs btn-danger" href="aksi.php?act=tindakan_kunjungan_hapus&ID=<?=$_GET[c]?>&kode=OB&kodeobat=<?=$rows->id_detail_obat?>" onclick="return confirm('Hapus data?')"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
@@ -273,7 +274,7 @@ if($row) :
                         ?>
                         <tr>
                             <td colspan="4" class="text-right"><strong>Total : </strong></td>
-                            <td colspan="2"><strong><?=countPriceOfProduct($produk)?></strong></td>
+                            <td colspan="2"><strong>Rp. <?=set_num(countPriceOfProduct($produk),0)?></strong></td>
                         </tr>
                     </tbody>
                 </table>

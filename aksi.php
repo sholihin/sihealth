@@ -458,5 +458,16 @@ if($act=='registrasi-pasien-lama'){
     $db->query("UPDATE tb_pasien SET transaksi_id='$db->insert_id' WHERE kode_pasien = '$kode_pasien'");
     redirect_js("client/?page=pasien&ID=$kode_pasien");
 }
+
+/**REKAM MEDIS PASIEN*/
+if($act=='rekam-medis'){
+    $id = $_GET['id'];
+    $kode_pasien = $_GET['c'];
+    $rekam_medis = $_POST['rekam_medis'];
+    $db->query("UPDATE `tb_detail_tindakan` SET `rekam_medis` = '$rekam_medis' WHERE `id_detail_tindakan` = $id");
+    redirect_js("index.php?m=tindakan_kunjungan&c=$kode_pasien");
+}
+
+
    
 ?>

@@ -16,9 +16,9 @@
             <div class="form-group">
                 <label>Jabatan<span class="text-danger">*</span></label>
                 <select class="form-control" name="jabatan">
-                    <option>Admin</option>
-                    <option>Dokter</option>
-                    <option>Apoteker</option>
+                    <option value="" selected disable>Pilihan</option>
+                    <option value="admin">Admin</option>
+                    <option value="operator">Operator</option>
                 </select>
             </div>
             <div class="form-group">

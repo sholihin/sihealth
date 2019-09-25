@@ -91,7 +91,7 @@ window.onload = function () {
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <div id="qrcode" class="img-thumbnail"></div>
+                        <a href="client/?page=pasien&ID=<?=$rows->kode_pasien?>"><div id="qrcode" class="img-thumbnail"></div></a>
                     </div>
                     <div class="col-md-12">
                         <h4><?=$rows->nama_pasien?></h4>

@@ -132,11 +132,12 @@ window.onload = function () {
                                 <th>Jenis Tindakan</th>
                                 <th>Nama Terapi</th>
                                 <th>Terapis</th>
+                                <th>Hasil Tindakan</th>
                             </tr>
                     </thead>
                     <tbody>
                     <?php
-                        $pasiens = $db->get_results("SELECT tb_regristrasi.kode_regristrasi,tb_regristrasi.tanggal_selesai,tb_regristrasi.kode_pasien,tb_regristrasi.jenis_tindakan,tb_detail_tindakan.kode_tindakan,tb_detail_tindakan.terapis_id,tb_detail_tindakan.tanggal
+                        $pasiens = $db->get_results("SELECT tb_regristrasi.kode_regristrasi,tb_regristrasi.tanggal_selesai,tb_regristrasi.kode_pasien,tb_regristrasi.jenis_tindakan,tb_detail_tindakan.kode_tindakan,tb_detail_tindakan.terapis_id,tb_detail_tindakan.tanggal,tb_detail_tindakan.rekam_medis
                                                     FROM tb_regristrasi
                                                     INNER JOIN tb_detail_tindakan ON tb_regristrasi.kode_regristrasi = tb_detail_tindakan.kode_regristrasi 
                                                     WHERE tb_regristrasi.kode_pasien = '$_GET[ID]' ORDER BY `tb_detail_tindakan`.`tanggal` DESC");
@@ -152,6 +153,7 @@ window.onload = function () {
                             <td><?=jenis_rawat($pasien->jenis_tindakan)?></td>
                             <td><?=terapi($pasien->kode_tindakan)->nama_tindakan?></td>
                             <td><?=($pasien->terapis_id != 0) ? terapis($pasien->terapis_id)->nama_dokter : 'Tidak Didaftarkan'?></td>
+                            <td><?=$pasien->rekam_medis ? $pasien->rekam_medis : 'Tidak Ada Keterangan'?></td>
                         </tr>
                         <?php } else: ?>
                         <tr><td colspan="5" class="text-left"><h4>Rekam medis tidak ditemukan.</h4></td></tr>
