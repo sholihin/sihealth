@@ -1,9 +1,9 @@
-<div class="page-header">
-    <h1>Registrasi Pasien</h1>
-</div>
 <div class="col-md-6 col-md-offset-3">
     <div class="panel panel-primary">
-        <div class="panel-body responsive">      
+        <div class="panel panel-heading">
+            <h4>Registrasi Pasien</h4>
+        </div>
+        <div class="panel-body">      
             <form class="inline" action="aksi.php?act=registrasi_tindakan" method="POST">
                 <div class="form-horinzontal">
                     <div class="form-group">
@@ -15,7 +15,6 @@
                         <label>Tindakan</label>
                         <select class="form-control" required name="jenis_tindakan"><?=option_tindakan()?></select>
                     </div>
-
                     <div class="form-group">
                         <div class="col-md-offset-9 col-md-3">
                             <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-save"></span> Proses</button>

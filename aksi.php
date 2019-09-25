@@ -147,8 +147,8 @@ if($mod=='terapi_tambah'){
 }elseif($mod=='terapi_ubah'){
     $nama = $_POST['nama'];
     $harga = $_POST['harga'];
-    $ujroh_senior = $_POST['ujroh_senior'];
-    $ujroh_junior = $_POST['ujroh_junior'];
+    $ujroh_senior = $_POST['senior'];
+    $ujroh_junior = $_POST['junior'];
 
     if($nama==''||$harga==''){ 
         print_msg("Field bertanda * tidak boleh kosong!");

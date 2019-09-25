@@ -4,7 +4,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading clearfix" style="margin-bottom:5px">      
-        <h1 class="text-left pull-left" style="margin-top:0px">Ujroh Terapis</h1>
+        <h4>Ujroh Terapis</h4>
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -15,7 +15,7 @@
                     <th class="col-md-4">Nama Terapis</th>
                     <th class="col-md-3">Telpon</th>
                     <th class="col-md-3">Alamat</th>
-                    <th class="col-md-1">Aksi</th>
+                    <th class="col-md-1 text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,8 +27,8 @@
                 <td><?=$row->nama_dokter?></td>
                 <td><?=$row->telp?></td>
                 <td><?=$row->alamat?></td>
-                <td>
-
+                <td class="text-center">
+                    <a class="btn btn-xs btn-primary" href="?m=detail-ujroh&id=<?=$row->kode_dokter?>"><span class="glyphicon glyphicon-search"></span></a>
                 </td>
             </tr>
             <?php endforeach;

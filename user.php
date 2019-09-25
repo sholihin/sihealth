@@ -4,7 +4,14 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">        
-        <h4>Daftar User</h4>
+        <div class="row">    
+            <div class="col-md-6 text-left">
+                <h4>Daftar User</h4>
+            </div>
+            <div class="col-md-6 text-right">
+                <a href="index.php?m=user_tambah" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Tambah</a>
+            </div>
+        </div>
     </div>
     <div class="panel-body">
         <div class="table-responsive">

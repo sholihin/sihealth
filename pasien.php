@@ -4,7 +4,14 @@
 
 <div class="panel panel-default">
     <div class="panel-heading clearfix" style="margin-bottom:5px">      
-        <h4>Daftar Pasien</h1>
+        <div class="row">    
+            <div class="col-md-6 text-left">
+                <h4>Daftar Pasien</h4>
+            </div>
+            <div class="col-md-6 text-right">
+                <a href="index.php?m=pasien_tambah" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Tambah</a>
+            </div>
+        </div>
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -20,7 +27,7 @@
                     <th>Agama</th>
                     <th>Pekerjaan</th>
                     <th>Telepon</th>
-                    <th>Aksi</th>
+                    <th class="text-center">Aksi</th>
                 </tr>
             </thead>
             <?php
@@ -37,7 +44,7 @@
                 <td><?=agama($row->agama)?></td>
                 <td><?=$row->pekerjaan?></td>
                 <td><?=$row->telepon?></td>
-                <td class="nw">
+                <td class="text-center">
                     <a class="btn btn-xs btn-warning" href="?m=pasien_ubah&amp;ID=<?=$row->kode_pasien?>"><span class="glyphicon glyphicon-edit"></span></a>
                     <a class="btn btn-xs btn-danger" href="aksi.php?act=pasien_hapus&amp;ID=<?=$row->kode_pasien?>" onclick="return confirm('Hapus data?')"><span class="glyphicon glyphicon-trash"></span></a>
                     <a class="btn btn-xs btn-default" href="?m=diagnosa&amp;ID=<?=$row->kode_pasien?>"><span class="glyphicon glyphicon-list"></span></a>

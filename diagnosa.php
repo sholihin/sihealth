@@ -1,6 +1,3 @@
-<div class="page-header">
-    <h1>Diagnosa Pasien</h1>
-</div>
 <div class="col-md-6 col-md-offset-3">
     <?php 
         if(!$_GET[ID]){ 
@@ -8,6 +5,9 @@
         } 
     ?>
     <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Diagnosa Pasien</h4>
+        </div>
         <div class="panel-body responsive">      
             <form class="inline" action="aksi.php?act=diagnosa" method="POST" id="form-diagnosa">
                 <div class="form-horinzontal">
