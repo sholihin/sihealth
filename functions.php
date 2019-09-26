@@ -324,7 +324,7 @@ function getTrx($kode){
         $str = array(
             $x->nama_obat,
             'Kategori Herbal/Obat',
-            1,
+            $x->jumlah_produk,
             $x->harga_jual,
             $x->harga_jual * $x->jumlah_produk
         );
