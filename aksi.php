@@ -408,6 +408,10 @@ if($act=="transaksi_rawat_selesai"){
     $total_bayar = $_POST['total_bayar'];
     $db->query("UPDATE `tb_regristrasi` SET `tanggal_selesai` = '$selesai', `total` = '$total_bayar' WHERE `tb_regristrasi`.`kode_regristrasi` = $kode_reg"); 
 
+    $obats = $db->get_results("SELECT * FROM tb_detail_obat WHERE kode_regristrasi='$kode_reg'");
+    foreach($obats as $obat){
+        $db->query("UPDATE tb_obat SET stok = stok - $obat->jumlah_produk WHERE kode_obat = '$obat->kode_obat'");
+    }
     header("location:print.php?trx_id=$kode_reg");
 }
 

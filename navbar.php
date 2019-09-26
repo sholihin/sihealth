@@ -43,8 +43,8 @@
                     <li><a href="?m=laporan_terapi">Terapi</a></li>
                   </ul>
                 </li>
-            <?php endif ?>
                 <li><a href="?m=ujroh">Ujroh Terapis</a></li>
+            <?php endif ?>
           </ul>
           <ul class="nav navbar-nav navbar-right">    
               <li class="dropdown">

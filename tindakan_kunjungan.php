@@ -244,6 +244,7 @@ if($row) :
                             <th class="col-md-1">No</th>
                             <th>Nama </th>
                             <th>Harga</th>
+                            <th>Stok</th>
                             <th>Jumlah</th>
                             <th>Subtotal</th>
                             <th class="text-center">Aksi</th>
@@ -252,13 +253,14 @@ if($row) :
                     <tbody>
                         <?php
                             $no=1;
-                            $produk = $db->get_results("SELECT tb_detail_obat.id_detail_obat,tb_detail_obat.kode_obat,tb_detail_obat.kode_regristrasi,tb_detail_obat.jumlah_produk,tb_obat.nama_obat,tb_obat.harga_jual FROM tb_detail_obat INNER JOIN tb_obat ON tb_detail_obat.kode_obat = tb_obat.kode_obat WHERE tb_detail_obat.kode_regristrasi = '$pasien->transaksi_id'");
+                            $produk = $db->get_results("SELECT tb_detail_obat.id_detail_obat,tb_detail_obat.kode_obat,tb_detail_obat.kode_regristrasi,tb_detail_obat.jumlah_produk,tb_obat.nama_obat,tb_obat.harga_jual,tb_obat.stok FROM tb_detail_obat INNER JOIN tb_obat ON tb_detail_obat.kode_obat = tb_obat.kode_obat WHERE tb_detail_obat.kode_regristrasi = '$pasien->transaksi_id'");
                             foreach($produk as $rows):
                         ?>
                         <tr>
                             <td class="col-md-1"><?=$no++?></td>
                             <td><?=$rows->nama_obat?></td>
                             <td>Rp. <?=set_num($rows->harga_jual,0)?></td>
+                            <td><?=$rows->stok?></td>
                             <td class="col-md-1">
                                 <form action="aksi.php?act=change-qty&ID=<?=$_GET[c]?>" method="POST" id="form-qty-<?=$rows->id_detail_obat?>">
                                     <input type="hidden" class="form-control" name="id_detail_obat" value="<?=$rows->id_detail_obat?>">
