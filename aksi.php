@@ -265,12 +265,13 @@ if($mod=='regristrasi_lama'){
     $tindakan = $_POST['tindakan'];
     $obat = $_POST['obat'];
     $kode = $_GET['kodereg'];
+    $tanggal = getNewDate();
     $ID = $_GET['ID'];
     if($obat!='' && $tindakan!=''){
-        $db->query("insert into tb_detail_tindakan (kode_regristrasi,kode_tindakan) values('$_GET[kodereg]','$tindakan')");
+        $db->query("insert into tb_detail_tindakan (kode_regristrasi,kode_tindakan,tanggal) values('$_GET[kodereg]','$tindakan','$tanggal')");
         $db->query("insert into tb_detail_obat (kode_regristrasi,kode_obat) values('$_GET[kodereg]','$obat')");
     }elseif($obat ==''){
-        $db->query("insert into tb_detail_tindakan (kode_regristrasi,kode_tindakan) values('$_GET[kodereg]','$tindakan')");
+        $db->query("insert into tb_detail_tindakan (kode_regristrasi,kode_tindakan,tanggal) values('$_GET[kodereg]','$tindakan','$tanggal')");
     }elseif($tindakan ==''){
          $db->query("insert into tb_detail_obat (kode_regristrasi,kode_obat) values('$_GET[kodereg]','$obat')");
     }
@@ -345,6 +346,7 @@ if($mod=='tindakan_kunjungan'){
     $tanggal = getNewDate();
     $kode_pasien = $_POST['kode_pasien'];
     $item = $_POST['item'];
+    $tanggal = getNewDate();
 
     $jenis = explode(" - ",$item);
 
@@ -361,7 +363,7 @@ if($mod=='tindakan_kunjungan'){
                 $db->query("INSERT INTO tb_detail_obat (kode_regristrasi,kode_obat,jumlah_produk) values('$pasien->transaksi_id','$kode_obat','$jumlah')");
             }else if(getPrefixCode($jenis[0]) == 'terapi'){
                 $kode_tindakan = $jenis[0];
-                $db->query("INSERT INTO tb_detail_tindakan (kode_regristrasi,kode_tindakan) values('$pasien->transaksi_id','$kode_tindakan')");
+                $db->query("INSERT INTO tb_detail_tindakan (kode_regristrasi,kode_tindakan,tanggal) values('$pasien->transaksi_id','$kode_tindakan','$tanggal')");
             }else{
                 print_msg("Item gagal di proses!");
             }
@@ -403,7 +405,7 @@ if($act=="transaksi_rawat_selesai"){
     $db->query("UPDATE `tb_pasien` SET `transaksi_id` = NULL WHERE `kode_pasien` = '$kode_pasien'"); 
     
     //Update tb_regristrasi
-    $selesai = getNewDateTime();
+    $selesai = getNewDate();
     $kode_reg = $_POST['kode_reg'];
     $total_bayar = $_POST['total_bayar'];
     $db->query("UPDATE `tb_regristrasi` SET `tanggal_selesai` = '$selesai', `total` = '$total_bayar' WHERE `tb_regristrasi`.`kode_regristrasi` = $kode_reg"); 

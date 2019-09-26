@@ -156,7 +156,7 @@ window.onload = function () {
                             <td><?=$pasien->rekam_medis ? $pasien->rekam_medis : 'Tidak Ada Keterangan'?></td>
                         </tr>
                         <?php } else: ?>
-                        <tr><td colspan="5" class="text-left"><h4>Rekam medis tidak ditemukan.</h4></td></tr>
+                        <tr><td colspan="6" class="text-left"><h4>Rekam medis tidak ditemukan.</h4></td></tr>
                         <?php endif ?>
                         </tbody>
                     </table>

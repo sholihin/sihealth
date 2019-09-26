@@ -52,7 +52,7 @@ body {
 </style>-->
 
 <div class="entry-body">
-    <h2>Aplikasi RSSB Client - v1.0</h2>
+    <h2>Aplikasi RSSB Client - v2.0</h2>
     <legend></legend>
 
     <div class="container-fluid text-center">

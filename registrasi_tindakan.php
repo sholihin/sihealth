@@ -58,7 +58,7 @@ $pasiens = $db->get_results("SELECT * FROM tb_pasien");
 
     function ganti(){
         var str = $( "#pasien" ).val();
-        var value = str.slice(0, 6);
+        var value = str.slice(0, 7);
         $( "#kode_pasien" ).val(value);
     }
 </script>

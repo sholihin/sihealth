@@ -5,6 +5,10 @@ $config["server"]='localhost';
 $config["username"]='root';
 $config["password"]='admin';
 $config["database_name"]='db_rawat_jalan';
+// $config["server"]='localhost';
+// $config["username"]='u6227681_rssb_client';
+// $config["password"]='b1sm1ll@h';
+// $config["database_name"]='u6227681_rssb_client';
 
 include'includes/ez_sql_core.php';
 include'includes/ez_sql_mysqli.php';

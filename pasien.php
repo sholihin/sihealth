@@ -1,6 +1,15 @@
 
 <link href="vendor/datatables/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
 <link href="vendor/datatables/css/buttons.bootstrap.min.css" rel="stylesheet"/>
+<style>
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: 0;
+    margin-left: 0;
+    width: 100%;
+}
+</style>
 
 <div class="panel panel-default">
     <div class="panel-heading clearfix" style="margin-bottom:5px">      
@@ -23,7 +32,7 @@
                     <th>Alamat</th>
                     <th>Jenis Kelamin</th>
                     <th>Umur</th>
-                    <th>Golongan Darah</th>
+                    <th class="col-md-1">Golongan Darah</th>
                     <th>Agama</th>
                     <th>Pekerjaan</th>
                     <th>Telepon</th>
