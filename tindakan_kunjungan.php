@@ -3,7 +3,7 @@ $pasien = $db->get_row("select * from tb_pasien where kode_pasien = '$_GET[c]'")
 $total = 0;
 ?>
 <div class="page-header">
-    <h1>Transaksi</h1>
+    <h1>Transaksi - Rawat Jalan</h1>
 </div>
 <div class="row">
     <div class="col-md-6">
@@ -275,7 +275,7 @@ if($row) :
                         <?php endforeach;
                         ?>
                         <tr>
-                            <td colspan="4" class="text-right"><strong>Total : </strong></td>
+                            <td colspan="5" class="text-right"><strong>Total : </strong></td>
                             <td colspan="2"><strong>Rp. <?=set_num(countPriceOfProduct($produk),0)?></strong></td>
                         </tr>
                     </tbody>

@@ -157,10 +157,35 @@ if($mod=='terapi_tambah'){
         redirect_js("index.php?m=terapi");
     }
 }elseif($act =='terapi_hapus'){
-$db->query("delete from tb_tindakan where kode_tindakan='$_GET[ID]'");
-header("location:index.php?m=terapi");
+    $db->query("delete from tb_tindakan where kode_tindakan='$_GET[ID]'");
+    header("location:index.php?m=terapi");
 }
 
+/**Kategori Tindakan */
+if($mod=='kategori_terapi_tambah'){
+    $nama = $_POST['nama'];
+    $harga = $_POST['harga'];
+    if($nama==''||$harga==''){ 
+        print_msg("Field bertanda * tidak boleh kosong!");
+    }else{
+        $db->query("INSERT INTO tb_kategori_tindakan (nama_kategori,harga) VALUES ('$nama','$harga')");
+        redirect_js("index.php?m=kategori_terapi");
+    }
+
+}elseif($mod=='kategori_terapi_ubah'){
+    $nama = $_POST['nama'];
+    $harga = $_POST['harga'];
+
+    if($nama==''||$harga==''){ 
+        print_msg("Field bertanda * tidak boleh kosong!");
+    }else{
+        $db->query("UPDATE tb_kategori_tindakan set nama_kategori='$nama',harga='$harga' where kode_kategori='$_GET[ID]'");
+        redirect_js("index.php?m=kategori_terapi");
+    }
+}elseif($act =='kategori_terapi_hapus'){
+    $db->query("DELETE from tb_kategori_tindakan where kode_kategori='$_GET[ID]'");
+    header("location:index.php?m=kategori_terapi");
+}
 
 /**OBAT*/
 if($mod=='obat_tambah'){
@@ -384,6 +409,14 @@ if($act=="pilihterapis"){
     header("location:index.php?m=tindakan_kunjungan&c=$_GET[ID]");
 }
 
+if($act=="pilih_terapis_kategori"){
+    $terapis_id = $_POST['terapis_id'];
+    $id_detail_tindakan = $_POST['id_detail_tindakan'];
+
+    $db->query("UPDATE `tb_detail_tindakan` SET `terapis_id` = '$terapis_id' WHERE `id_detail_tindakan` = '$id_detail_tindakan'"); 
+    header("location:index.php?m=tindakan_kategori_kunjungan&c=$_GET[ID]");
+}
+
 if($act=="discount_terapi"){
     $discount = $_POST['diskon'];
     $id_detail_tindakan = $_POST['id_detail_tindakan'];
@@ -415,6 +448,24 @@ if($act=="transaksi_rawat_selesai"){
         $db->query("UPDATE tb_obat SET stok = stok - $obat->jumlah_produk WHERE kode_obat = '$obat->kode_obat'");
     }
     header("location:print.php?trx_id=$kode_reg");
+}
+
+if($act=="transaksi_kategori_rawat_selesai"){
+    $kode_pasien = $_POST['kode_pasien'];
+    $selesai = getNewDate();
+    $kode_reg = $_POST['kode_reg'];
+    $total_bayar = $_POST['total_bayar'];
+    $harga_paket = $_POST['harga_paket'];
+
+    //Update tb_pasien
+    if($total_bayar == $harga_paket){
+        $db->query("UPDATE `tb_pasien` SET `transaksi_id` = NULL WHERE `kode_pasien` = '$kode_pasien'"); 
+    }
+    
+    //Update tb_regristrasi
+    $db->query("UPDATE `tb_regristrasi` SET `tanggal_selesai` = '$selesai', `total` = '$total_bayar' WHERE `tb_regristrasi`.`kode_regristrasi` = $kode_reg"); 
+
+    header("location:print_paket.php?trx_id=$kode_reg");
 }
 
 if($mod=="kunjungan_hapus"){
@@ -474,6 +525,16 @@ if($act=='rekam-medis'){
     redirect_js("index.php?m=tindakan_kunjungan&c=$kode_pasien");
 }
 
+if($act =='tindakan_kategori_kunjungan'){
+    $kodereg = $_POST['kodereg'];
+    $jenis = explode(" - ",$_POST['item']);
+    $tanggal = getNewDate();
 
+    $db->query("INSERT INTO tb_detail_tindakan (kode_regristrasi,kode_tindakan,tanggal) values('$kodereg','$jenis[0]','$tanggal')");
+    header("location:index.php?m=tindakan_kategori_kunjungan&c=$_GET[c]");
+}elseif($act=="tindakan_kategori_kunjungan_hapus"){
+    $db->query("DELETE FROM `tb_detail_tindakan` WHERE `id_detail_tindakan` = $_GET[id]"); 
+    header("location:index.php?m=tindakan_kategori_kunjungan&c=$_GET[c]");
+}
    
 ?>

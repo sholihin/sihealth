@@ -120,19 +120,6 @@ function diagnosa($kode_pasien){
     return $row;
 }
 
-function option_tindakan(){
-    $option = array(
-        array('key'=>'', 'value' => 'Pilihan', 'selected' => 'selected disabled'),
-        array('key'=>'rawat_jalan', 'value' => 'Rawat Jalan', 'selected' => ''),
-        array('key'=>'rawat_inap', 'value' => 'Rawat Inap', 'selected' => '')
-    );
-    foreach($option as $x){
-        $a.="<option value='$x[key]' $x[selected]>$x[value]</option>";
-    }
-
-    return $a;
-}
-
 function getNewDate(){
     date_default_timezone_set("Asia/Jakarta");
     return date("Y-m-d");
@@ -261,15 +248,24 @@ function terapi($id){
     return $results;
 }
 
-function jenis_rawat($str){
-    if($str == 'rawat_inap'){
-        $str = "Rawat Inap";
-    }else if($str == 'rawat_jalan'){
-        $str = "Rawat Jalan";
-    }else{
+
+function jenis_rawat($id){
+    global $db;
+    $data = $db->get_results("SELECT * FROM tb_kategori_tindakan");
+    $str = '';
+    foreach($data as $x){
+        if($id == 0){
+            $str = 'Rawat Jalan';
+        }else{
+            if($x->kode_kategori == $id){
+                $str = $x->nama_kategori;
+            }
+        }
+    }
+    if($str == ''){
         $str = '<label class="label label-danger">Tidak Terdaftar</label>';
     }
-
+    
     return $str;
 }
 
@@ -350,5 +346,49 @@ function getTrx($kode){
     return $all;
 }
 
+function getTrxPaket($kode){
+    global $db;
+    $list = array();
+    $bill = array();
+
+    $totalTagihan = 0;
+    $totalBayar = 0;
+    $sisaTagihan = 0;
+
+    $str = '';
+    $reg = $db->get_row("SELECT tb_regristrasi.kode_regristrasi,tb_regristrasi.jenis_tindakan,tb_regristrasi.tanggal,tb_regristrasi.total,tb_pasien.nama_pasien,tb_pasien.alamat FROM `tb_regristrasi`
+                            RIGHT OUTER JOIN tb_pasien USING (kode_pasien)
+                            WHERE kode_regristrasi = '$kode'");
+
+    $paket = $db->get_row("SELECT * FROM tb_kategori_tindakan WHERE kode_kategori =$reg->jenis_tindakan");
+
+    $str = array(
+        $paket->nama_kategori,
+        'Paket Terapi/Pengobatan',
+        1,
+        'Rp. '.set_num($paket->harga,0),
+        'Rp. '.set_num($paket->harga * 1,0)
+    );
+    array_push($list, $str);
+
+    $all = array(
+        'bill' => array(
+            'customer_name' => $reg->nama_pasien,
+            'customer_address' => $reg->alamat,
+            'totalTagihan' => 'Rp. '.set_num($paket->harga,0),
+            'totalBayar' => 'Rp. '.set_num($reg->total,0),
+            'sisaTagihan' => '- Rp. '.set_num($paket->harga - $reg->total,0)
+        ),
+        'list' => $list
+    );
+
+    return $all;
+}
+
+function kategoriTerapi($kode){
+    global $db;
+    $kat = $db->get_row("SELECT * FROM tb_kategori_tindakan where kode_kategori = $kode");
+    return $kat;
+}
 
 ?>

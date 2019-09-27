@@ -13,7 +13,16 @@
                     </div>
                     <div class="form-group">
                         <label>Tindakan</label>
-                        <select class="form-control" required name="jenis_tindakan"><?=option_tindakan()?></select>
+                        <select class="form-control" required name="jenis_tindakan">
+                            <option value='' selected disabled>Pilihan</option>
+                            <option value='0'>Rawat Jalan</option>
+                            <?php
+                                $options = $db->get_results("SELECT * FROM tb_kategori_tindakan");
+                                foreach($options as $x){
+                                    echo "<option value='$x->kode_kategori'>$x->nama_kategori</option>";
+                                }
+                            ?>
+                        </select>
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-9 col-md-3">

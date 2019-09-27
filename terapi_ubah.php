@@ -20,7 +20,7 @@ $row = $db->get_row("select * from tb_tindakan where kode_tindakan='$_GET[ID]'")
                     </div>
                     <div class="form-group">
                         <label>Harga <span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="harga"  value="<?=$row->harga?>"/>
+                        <input class="form-control" type="number" name="harga"  value="<?=$row->harga?>"/>
                     </div>
                     <div class="form-group">
                         <label>Komisi Senior <span class="text-danger">*</span></label>

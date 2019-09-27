@@ -27,6 +27,7 @@
                                         INNER JOIN tb_tindakan ON tb_detail_tindakan.kode_tindakan = tb_tindakan.kode_tindakan
                                         INNER JOIN tb_dokter ON tb_detail_tindakan.terapis_id = tb_dokter.kode_dokter
                                         INNER JOIN tb_regristrasi ON tb_detail_tindakan.kode_regristrasi = tb_regristrasi.kode_regristrasi
+                                        WHERE tb_regristrasi.jenis_tindakan = 0
                                         ORDER BY tb_detail_tindakan.tanggal DESC
                                     ");
             

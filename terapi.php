@@ -8,7 +8,8 @@
                 <h4>Daftar Terapi</h4>
             </div>
             <div class="col-md-6 text-right">
-                <a href="index.php?m=terapi_tambah" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Tambah</a>
+                <a href="index.php?m=kategori_terapi" class="btn btn-success"><i class="glyphicon glyphicon-th-large"></i> Paket Terapi</a>
+                <a href="index.php?m=terapi_tambah" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Tambah Terapi</a>
             </div>
         </div>
     </div>
@@ -26,14 +27,7 @@
                 </tr>
             </thead>
             <?php
-            $q = esc_field($_GET['q']);
-        
-            $rows = $db->get_results("SELECT * FROM tb_tindakan
-                                    WHERE  kode_tindakan LIKE '%$q%' OR nama_tindakan LIKE '%$q%'
-                                    OR harga LIKE '%$q%'
-                                    ORDER BY kode_tindakan");
-            
-            $no=0;
+            $rows = $db->get_results("SELECT * FROM tb_tindakan ORDER BY kode_tindakan DESC");
             foreach($rows as $row):?>
             <tr>
                 <td><?=$row->kode_tindakan ?></td>

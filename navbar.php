@@ -40,7 +40,7 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Laporan <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="?m=laporan_penjualan">Penjualan</a></li>
-                    <li><a href="?m=laporan_terapi">Terapi</a></li>
+                    <li><a href="?m=laporan_terapi">Terapi Rawat Jalan</a></li>
                   </ul>
                 </li>
                 <li><a href="?m=ujroh">Ujroh Terapis</a></li>

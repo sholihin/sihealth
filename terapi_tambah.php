@@ -17,7 +17,7 @@
                     </div>
                     <div class="form-group">
                         <label>Harga <span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="harga"  value="<?=$_POST['harga']?>"/>
+                        <input class="form-control" type="number" name="harga"  value="<?=$_POST['harga']?>"/>
                     </div>
                     <div class="form-group">
                         <label>Komisi Senior <span class="text-danger">*</span></label>
