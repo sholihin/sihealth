@@ -327,6 +327,12 @@ if($act=='registrasi_tindakan'){
     $kode_pasien = $_POST['kode_pasien'];
     $jenis_tindakan = $_POST['jenis_tindakan'];
 
+    if($jenis_tindakan == 0){
+        $link = "location:index.php?m=tindakan_kunjungan&c=$kode_pasien";
+    }else{
+        $link = "location:index.php?m=tindakan_kategori_kunjungan&c=$kode_pasien";
+    }
+
     if($kode_pasien ==''){
         print_msg("Pasien tidak terdaftar!");
         header("location:index.php?m=registrasi_tindakan&c=$kode_pasien");
@@ -334,12 +340,12 @@ if($act=='registrasi_tindakan'){
         $pasien = $db->get_row("SELECT * FROM tb_pasien WHERE kode_pasien = '$kode_pasien'");
         if($pasien->transaksi_id != NULL){
             $db->query("UPDATE tb_regristrasi SET jenis_tindakan='$jenis_tindakan' WHERE kode_regristrasi = '$pasien->transaksi_id'");
-            header("location:index.php?m=tindakan_kunjungan&c=".$pasien->kode_pasien);
+            header($link);
         }else{
             getAntrian($kode_pasien);
             $db->query("INSERT INTO tb_regristrasi (tanggal, kode_pasien, total, jenis_tindakan) values('$tanggal','$kode_pasien', 0, '$jenis_tindakan')");
             $db->query("UPDATE tb_pasien SET transaksi_id='$db->insert_id' WHERE kode_pasien = '$kode_pasien'");
-            header("location:index.php?m=tindakan_kunjungan&c=$kode_pasien");
+            header($link);
         }
         
     }
